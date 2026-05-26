@@ -26,6 +26,11 @@ the usual track2 keys work (`+`/`-` speed, arrows scroll, `a` arrival
 board, `h` help, `q` back to picker). Most keys are caught by xterm —
 browser shortcuts like Ctrl+L still work as usual.
 
+On touch devices (no hover, coarse pointer), an on-screen keypad along
+the bottom edge provides the same keys (arrows, `+`/`-`, `a`, `h`, `[`,
+`]`, Enter, Esc, `q`). Taps dispatch through `term.input()` so the same
+`onData` listeners fire as for hardware keystrokes.
+
 ## Deploying
 
 The site is a static S3 + CloudFront + Route 53 stack defined in CDK

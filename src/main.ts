@@ -76,6 +76,8 @@ function bootstrap(): void {
     fit.fit();
   });
 
+  wireKeypad(term);
+
   function returnToPicker(): void {
     showPicker({
       term,
@@ -92,6 +94,46 @@ function bootstrap(): void {
   }
 
   returnToPicker();
+}
+
+/**
+ * Mobile on-screen keypad. Each button carries a `data-key` whose value
+ * maps to the same byte sequence a real keypress would deliver — arrow
+ * keys send the CSI sequences the picker and track2's input layer already
+ * understand (see `track2/src/view/input.ts`). Dispatch goes through
+ * `term.input()` so every existing `onData` listener (picker, XtermSource)
+ * fires identically to a hardware keystroke.
+ */
+const KEYPAD_SEQUENCES: Record<string, string> = {
+  up: '\x1b[A',
+  down: '\x1b[B',
+  left: '\x1b[D',
+  right: '\x1b[C',
+  plus: '+',
+  minus: '-',
+  enter: '\r',
+  esc: '\x1b',
+  a: 'a',
+  h: 'h',
+  q: 'q',
+  lbracket: '[',
+  rbracket: ']',
+};
+
+function wireKeypad(term: XTerm): void {
+  const keypad = document.getElementById('keypad');
+  if (!keypad) return;
+  // Use pointerdown (not click) for snappier response and to fire before
+  // the button steals focus from the terminal.
+  keypad.addEventListener('pointerdown', (e) => {
+    const btn = (e.target as HTMLElement | null)?.closest('button[data-key]');
+    if (!btn) return;
+    e.preventDefault();
+    const key = btn.getAttribute('data-key');
+    const seq = key ? KEYPAD_SEQUENCES[key] : undefined;
+    if (seq) term.input(seq, true);
+    term.focus();
+  });
 }
 
 bootstrap();

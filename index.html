@@ -15,10 +15,26 @@
         JavaScript enabled to render.
       </p>
     </noscript>
-    <p class="small-screen-notice">
-      This is a keyboard-driven terminal UI &mdash; best viewed on a desktop.
-    </p>
     <div id="terminal"></div>
+    <div id="keypad" aria-label="Touch controls">
+      <div class="keypad-row">
+        <button type="button" data-key="left"  aria-label="Left">←</button>
+        <button type="button" data-key="down"  aria-label="Down">↓</button>
+        <button type="button" data-key="up"    aria-label="Up">↑</button>
+        <button type="button" data-key="right" aria-label="Right">→</button>
+        <button type="button" data-key="minus" aria-label="Slow down">−</button>
+        <button type="button" data-key="plus"  aria-label="Speed up">+</button>
+      </div>
+      <div class="keypad-row">
+        <button type="button" data-key="a">a</button>
+        <button type="button" data-key="h">h</button>
+        <button type="button" data-key="lbracket" aria-label="Previous station">[</button>
+        <button type="button" data-key="rbracket" aria-label="Next station">]</button>
+        <button type="button" data-key="enter" aria-label="Enter">⏎</button>
+        <button type="button" data-key="esc"   aria-label="Escape">esc</button>
+        <button type="button" data-key="q">q</button>
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

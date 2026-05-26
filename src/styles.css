@@ -27,24 +27,64 @@ body {
   height: 100%;
 }
 
-.noscript,
-.small-screen-notice {
-  display: none;
+.noscript {
+  display: block;
   padding: 24px;
   font-size: 14px;
   line-height: 1.5;
   color: #ccc;
 }
 
-.noscript {
-  display: block;
+#keypad {
+  display: none;
 }
 
-@media (max-width: 720px), (max-height: 420px) {
-  .small-screen-notice {
-    display: block;
+/* Touch devices (no hover, coarse pointer) get an on-screen keypad,
+ * since they have no physical arrow keys / +/- / letter keys.
+ * Desktop with a mouse keeps the keyboard-only UX it was designed for. */
+@media (hover: none) and (pointer: coarse) {
+  #keypad {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 6px;
+    padding-bottom: calc(6px + env(safe-area-inset-bottom));
+    background: #0a0a0a;
+    border-top: 1px solid #222;
+    z-index: 10;
+    user-select: none;
+    -webkit-user-select: none;
   }
+  .keypad-row {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+    gap: 4px;
+  }
+  #keypad button {
+    background: #111;
+    color: #ccc;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 12px 0;
+    min-height: 44px;
+    font-family: inherit;
+    font-size: 18px;
+    line-height: 1;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #keypad button:active {
+    background: #222;
+    border-color: #555;
+  }
+  /* Leave room above the keypad so xterm's fit() sizes to the visible area. */
   #terminal {
-    display: none;
+    bottom: 116px;
+    height: auto;
   }
 }
