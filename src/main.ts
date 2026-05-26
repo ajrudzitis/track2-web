@@ -6,6 +6,7 @@
 
 import { Terminal as XTerm } from '@xterm/xterm';
 import { FitAddon } from '@xterm/addon-fit';
+import { WebLinksAddon } from '@xterm/addon-web-links';
 import '@xterm/xterm/css/xterm.css';
 
 import { runSimulation } from '../track2/src/runtime.js';
@@ -62,6 +63,9 @@ function bootstrap(): void {
 
   const fit = new FitAddon();
   term.loadAddon(fit);
+  // Auto-detect URLs in the terminal output and make them clickable
+  // (used by the picker's about overlay to link to the GitHub repo).
+  term.loadAddon(new WebLinksAddon());
   term.open(host);
   fit.fit();
 
