@@ -69,6 +69,20 @@ function bootstrap(): void {
   term.open(host);
   fit.fit();
 
+  // xterm.js renders a hidden helper <textarea> to receive keystrokes and
+  // act as an IME / accessibility surface. On iOS, focusing any textarea
+  // pops the soft keyboard and the form-field accessory bar — and our
+  // keypad calls `term.input()` directly, so the textarea never needs to
+  // behave like a real text input. Tag it so iOS leaves it alone.
+  const helperTextarea = host.querySelector<HTMLTextAreaElement>('.xterm-helper-textarea');
+  if (helperTextarea) {
+    helperTextarea.setAttribute('inputmode', 'none');
+    helperTextarea.setAttribute('autocomplete', 'off');
+    helperTextarea.setAttribute('autocorrect', 'off');
+    helperTextarea.setAttribute('autocapitalize', 'off');
+    helperTextarea.setAttribute('spellcheck', 'false');
+  }
+
   const sink = new XtermSink(term);
   const source = new XtermSource(term);
 
@@ -132,7 +146,9 @@ function wireKeypad(term: XTerm): void {
     const key = btn.getAttribute('data-key');
     const seq = key ? KEYPAD_SEQUENCES[key] : undefined;
     if (seq) term.input(seq, true);
-    term.focus();
+    // Intentionally no term.focus(): focusing xterm's helper textarea
+    // makes iOS Safari show its form-field accessory bar / soft keyboard.
+    // term.input() fires onData without needing focus.
   });
 }
 
