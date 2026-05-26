@@ -1,0 +1,20 @@
+{
+  "name": "track2-web",
+  "version": "0.1.0",
+  "description": "Web frontend for the track2 subway simulation, rendered via xterm.js",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@xterm/addon-fit": "^0.10.0",
+    "@xterm/xterm": "^5.5.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0"
+  }
+}

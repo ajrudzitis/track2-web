@@ -1,0 +1,50 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: #ccc;
+  font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", Menlo, Consolas, monospace;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+#terminal {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* xterm.js renders inside .xterm — make it fill the host */
+.xterm {
+  height: 100%;
+}
+
+.noscript,
+.small-screen-notice {
+  display: none;
+  padding: 24px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #ccc;
+}
+
+.noscript {
+  display: block;
+}
+
+@media (max-width: 720px), (max-height: 420px) {
+  .small-screen-notice {
+    display: block;
+  }
+  #terminal {
+    display: none;
+  }
+}

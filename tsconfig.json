@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": false,
+    "verbatimModuleSyntax": false,
+    "jsx": "preserve",
+    "types": ["vite/client"]
+  },
+  "include": [
+    "src/**/*",
+    "track2/src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "track2/node_modules",
+    "track2/dist",
+    "track2/scripts",
+    "track2/src/main.ts",
+    "track2/src/debug.ts",
+    "track2/src/view/node-io.ts"
+  ]
+}
